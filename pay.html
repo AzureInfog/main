@@ -3,44 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagamento Efetuado</title>
+    <title>Pagamento EfetuadoB</title>
 
-    <script>
-        function redirecionar() {
+<script>
+    function redirecionar() {
 
-            // Captura parâmetros da URL
-            const params = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams(window.location.search);
 
-            // Monta payload usando os parâmetros recebidos
-            const payload = {
-                status: "handle",
-                handle: "sua_infinite_tag",
-                order_nsu: params.get("order_nsu") || "",
-                transaction_nsu: params.get("transaction_nsu") || "",
-                slug: params.get("slug") || "",
-                receipt_url: params.get("receipt_url") || "",
-                capture_method: params.get("capture_method") || ""
-            };
+        // Debug
+        console.log(window.location.href);
 
-            console.log(payload);
+        const payload = {
+            status: "handle",
+            handle: "sua_infinite_tag",
 
-            // Converte para JSON
-            const jsonPayload = JSON.stringify(payload);
+            order_nsu:
+                params.get("order_nsu") || "",
 
-            // Deep Link
-            const deepLink =
-                "appsocio://retorno/tap_resulte?data=" +
-                encodeURIComponent(jsonPayload);
+            transaction_nsu:
+                params.get("transaction_nsu") ||
+                params.get("transaction_id") ||
+                "",
 
-            console.log(deepLink);
+            slug:
+                params.get("slug") || "",
 
-            // Redireciona
-            window.location.href = deepLink;
-        }
+            receipt_url:
+                params.get("receipt_url") || "",
 
-        // Aguarda 3 segundos
-        setTimeout(redirecionar, 3000);
-    </script>
+            capture_method:
+                params.get("capture_method") || ""
+        };
+
+        console.log("PAYLOAD:", payload);
+
+        const deepLink =
+            "appsocio://retorno/tap_resulte?data=" +
+            encodeURIComponent(JSON.stringify(payload));
+
+        console.log("DEEP LINK:", deepLink);
+
+        // REDIRECT
+        window.location.href = deepLink;
+    }
+
+    setTimeout(redirecionar, 3000);
+</script>
 </head>
 
 <body>
