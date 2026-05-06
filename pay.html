@@ -3,15 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagamento EfetuadoB</title>
+    <title>Pagamento Efetuado</title>
 
 <script>
-    function redirecionar() {
+
+    async function enviarParaAPI(payload) {
+
+        try {
+
+            const response = await fetch(
+                "https://api.infog.com.br/app/assoc/site",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                }
+            );
+
+            const retorno = await response.text();
+
+            console.log("POST OK:", retorno);
+
+        } catch (erro) {
+
+            console.error("Erro no POST:", erro);
+
+        }
+    }
+
+    async function redirecionar() {
 
         const params = new URLSearchParams(window.location.search);
-
-        // Debug
-        console.log(window.location.href);
 
         const payload = {
             status: "handle",
@@ -37,23 +61,28 @@
 
         console.log("PAYLOAD:", payload);
 
+        // ENVIA POST PARA API
+        await enviarParaAPI(payload);
+
+        // DEEP LINK
         const deepLink =
             "appsocio://retorno/tap_resulte?data=" +
             encodeURIComponent(JSON.stringify(payload));
 
         console.log("DEEP LINK:", deepLink);
 
-        // REDIRECT
+        // REDIRECT APP
         window.location.href = deepLink;
     }
 
     setTimeout(redirecionar, 3000);
+
 </script>
 </head>
 
 <body>
 
-    <h1>Pagamento Efetuado com Sucesso</h1>
+    <h1>AAA - Pagamento Efetuado com Sucesso</h1>
 
     <p>
         Você será redirecionado automaticamente...
