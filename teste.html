@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Deep Link</title>
+
+    <script>
+        function abrirApp() {
+
+            const url =
+                "appsocio://retorno/tap_result?data=TESTE";
+
+            console.log("Abrindo:", url);
+
+            window.location.href = url;
+        }
+    </script>
+</head>
+
+<body>
+
+    <h1>Teste Deep Link</h1>
+
+    <p>
+        Clique no botão abaixo para abrir o aplicativo TesteLuis.
+    </p>
+
+    <button
+        onclick="abrirApp()"
+        style="
+            font-size: 20px;
+            padding: 15px 30px;
+            cursor: pointer;
+        ">
+        ABRIR APP
+    </button>
+
+</body>
+</html>
